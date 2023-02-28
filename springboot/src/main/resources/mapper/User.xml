@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-Mapper.dtd">
+<mapper namespace="com/zr/springboot/mapper/UserMapper">
+    <update id="update">
+        update user
+        <set>
+            <if test="user_name != null">
+                user_name = #{user_name},
+            </if>
+            <if test="user_phone != null">
+                user_phone = #{user_phone},
+            </if>
+            <if test="user_pw != null">
+                user_pw = #{user_pw},
+            </if>
+            <if test="user_sex != null">
+                user_sex = #{user_sex},
+            </if>
+            <if test="user_birth != null">
+                user_birth = #{user_birth}
+            </if>
+        </set>
+        <where>
+            user_id = #{user_id}
+        </where>
+    </update>
+</mapper>
