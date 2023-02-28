@@ -2,13 +2,16 @@
     <div>
         <el-card class="box-card">
             <el-form :model="formData" :rules="rule" ref="form">
-                <h3>登录系统</h3>
+                <h3>忘记密码</h3>
                 <el-form-item prop="phone">
-                    <el-input v-model="formData.phone" placeholder="用户名"></el-input>
+                    <el-input v-model="formData.phone" placeholder="电话号"></el-input>
                 </el-form-item>
 
                 <el-form-item prop="password">
-                    <el-input type="password" v-model="formData.password" placeholder="密码"></el-input>
+                    <el-input type="password" v-model="formData.password" placeholder="输入新密码"></el-input>
+                </el-form-item>
+                <el-form-item prop="password1">
+                    <el-input type="password" v-model="formData.password1" placeholder="确定密码"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-row>
@@ -31,16 +34,8 @@
 
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="login">登录</el-button>
+                    <el-button type="primary" @click="change">重置</el-button>
                 </el-form-item>
-                <el-container direction="vertical">
-                    <el-form-item style="margin-bottom:-20px">
-                        <el-button style="float:right" type="text" @click="forget">忘记密码</el-button>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button style="float:right" type="text" @click="register">注册</el-button>
-                    </el-form-item>
-                </el-container>
 
 
             </el-form>
@@ -52,25 +47,57 @@
     export default {
         name: 'Login',
         data() {
+            let validatePass = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请输入密码'));
+                } else {
+                    if (this.formData.password !== '') {
+                        this.$refs.form.validateField('confirmPwd');
+                    }
+                    callback();
+                }
+            };
+            let validatePass2 = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请再次输入密码'));
+                } else if (value !== this.formData.password) {
+                    callback(new Error('两次输入密码不一致!'));
+                } else {
+                    callback();
+                }
+            };
+
             return {
                 img: '',
                 formData: {
                     phone: '',
                     password: '',
+                    password1: '',
                     word: '',
                 },
 
                 rule: {
                     phone: [
                         {
-                            required: true, message: "请输入用户名", trigger: "blur"
+                            required: true, message: "请输入电话号", trigger: "blur"
                         },
 
                     ],
                     password: [
+
                         {
-                            required: true, message: "请输入密码", trigger: "blur"
+                            pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\s\S]{8,16}$/,
+                            message: "密码格式不正确",
+                            trigger: "blur"
                         },
+                        {validator: validatePass, trigger: ["blur", "change"]}
+
+                    ],
+                    password1: [
+
+                        {validator: validatePass2}
+
+
                     ]
 
 
@@ -78,21 +105,16 @@
             }
         },
         methods: {
-            login() {
+            change() {
                 if (this.formData.phone == null || this.formData.password == null) {
                     alert("null");
                     return;
                 }
                 alert(this.formData.phone)
+                this.$router.push('/');
             },
             // 验证码刷新
             refresh() {
-
-            },
-            forget() {
-                this.$router.push('/forgetPassword');
-            },
-            register() {
 
             }
 
