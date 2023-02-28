@@ -24,10 +24,13 @@ public class UserService {
         return false;
 
     }
-    public int save(User user){
+    public boolean save(User user){
         if(user.getUser_id()==null)
             return userMapper.insert(user);
         else
             return userMapper.update(user);
+    }
+    public boolean save(UserDTO userDTO){
+        return userMapper.insert(userDTO);
     }
 }

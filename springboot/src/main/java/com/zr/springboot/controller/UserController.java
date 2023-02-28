@@ -16,6 +16,12 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
+    //注册功能
+    @PostMapping("/register")
+    public boolean resign(@RequestBody UserDTO userDTO){
+        return userService.save(userDTO);
+    }
+
     //登录功能
     @PostMapping("login")
     public boolean login(@RequestBody UserDTO userDTO){
@@ -27,7 +33,7 @@ public class UserController {
     }
     //新增和修改
     @PostMapping("/add")
-    public int save(@RequestBody User user){
+    public boolean save(@RequestBody User user){
         return userService.save(user);
     }
     //删除
