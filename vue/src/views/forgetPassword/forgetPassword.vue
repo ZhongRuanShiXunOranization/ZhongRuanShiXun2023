@@ -6,16 +6,15 @@
                 <el-form-item prop="phone">
                     <el-input v-model="formData.phone" placeholder="电话号"></el-input>
                 </el-form-item>
-
                 <el-form-item prop="password">
                     <el-input type="password" v-model="formData.password" placeholder="输入新密码"></el-input>
                 </el-form-item>
                 <el-form-item prop="password1">
                     <el-input type="password" v-model="formData.password1" placeholder="确定密码"></el-input>
                 </el-form-item>
-                <el-form-item>
+                <el-form-item prop="word">
                     <el-row>
-                        <el-col :span="14" prop="word">
+                        <el-col :span="14">
                             <el-input placeholder="验证码" v-model="formData.word">
                             </el-input>
                         </el-col>
@@ -30,14 +29,10 @@
                             </div>
                         </el-col>
                     </el-row>
-
-
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="change">重置</el-button>
                 </el-form-item>
-
-
             </el-form>
         </el-card>
     </div>
@@ -59,14 +54,13 @@
             };
             let validatePass2 = (rule, value, callback) => {
                 if (value === '') {
-                    callback(new Error('请再次输入密码'));
+                    callback(new Error('请再次输入密码!'));
                 } else if (value !== this.formData.password) {
                     callback(new Error('两次输入密码不一致!'));
                 } else {
                     callback();
                 }
             };
-
             return {
                 img: '',
                 formData: {
@@ -75,32 +69,26 @@
                     password1: '',
                     word: '',
                 },
-
                 rule: {
                     phone: [
                         {
-                            required: true, message: "请输入电话号", trigger: "blur"
+                            required: true, message: "请输入电话号!", trigger: "blur"
                         },
-
                     ],
                     password: [
-
                         {
                             pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\s\S]{8,16}$/,
-                            message: "密码格式不正确",
+                            message: "至少8-16个字符，至少1个大写字母，1个小写字母和1个数字",
                             trigger: "blur"
                         },
                         {validator: validatePass, trigger: ["blur", "change"]}
-
                     ],
                     password1: [
-
                         {validator: validatePass2}
-
-
+                    ],
+                    word: [
+                        {required: true, message: "验证码为空！", trigger: "blur"}
                     ]
-
-
                 }
             }
         },
@@ -115,12 +103,8 @@
             },
             // 验证码刷新
             refresh() {
-
             }
-
         }
-
-
     }
 </script>
 

@@ -1,18 +1,17 @@
 <template>
-    <div>
+    <div class="container">
         <el-card class="box-card">
             <el-form :model="formData" :rules="rule" ref="form">
                 <h3>登录系统</h3>
                 <el-form-item prop="phone">
                     <el-input v-model="formData.phone" placeholder="用户名"></el-input>
                 </el-form-item>
-
                 <el-form-item prop="password">
                     <el-input type="password" v-model="formData.password" placeholder="密码"></el-input>
                 </el-form-item>
-                <el-form-item>
+                <el-form-item prop="word">
                     <el-row>
-                        <el-col :span="14" prop="word">
+                        <el-col :span="14">
                             <el-input placeholder="验证码" v-model="formData.word">
                             </el-input>
                         </el-col>
@@ -27,8 +26,6 @@
                             </div>
                         </el-col>
                     </el-row>
-
-
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="login">登录</el-button>
@@ -41,8 +38,6 @@
                         <el-button style="float:right" type="text" @click="register">注册</el-button>
                     </el-form-item>
                 </el-container>
-
-
             </el-form>
         </el-card>
     </div>
@@ -57,27 +52,29 @@
                 formData: {
                     phone: '',
                     password: '',
-                    word: '',
+                    word: ''
                 },
-
                 rule: {
                     phone: [
                         {
-                            required: true, message: "请输入用户名", trigger: "blur"
+                            required: true, message: "请输入用户名！", trigger: "blur"
                         },
-
                     ],
                     password: [
                         {
-                            required: true, message: "请输入密码", trigger: "blur"
+                            required: true, message: "请输入密码！", trigger: "blur"
                         },
+                    ],
+                    word: [
+                        {
+                            required: true, message: "验证码为空！", trigger: "blur"
+                        }
                     ]
-
-
                 }
             }
         },
         methods: {
+            //登录
             login() {
                 if (this.formData.phone == null || this.formData.password == null) {
                     alert("null");
@@ -87,18 +84,16 @@
             },
             // 验证码刷新
             refresh() {
-
             },
+            //忘记密码
             forget() {
                 this.$router.push('/forgetPassword');
             },
+            //注册
             register() {
-
+                this.$router.push('/register');
             }
-
         }
-
-
     }
 </script>
 
