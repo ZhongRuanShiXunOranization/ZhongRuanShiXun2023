@@ -1,6 +1,5 @@
 package com.zr.springboot.entity;
 
-import ch.qos.logback.core.joran.action.PreconditionValidator;
 import lombok.Data;
 
 @Data

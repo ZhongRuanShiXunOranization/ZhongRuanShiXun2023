@@ -10,7 +10,6 @@ public class User {
     private Integer user_id;
     private String user_name;
     private String user_phone;
-    @JsonIgnore
     private String user_pw;
     private String user_sex;
     private Date   user_birth;

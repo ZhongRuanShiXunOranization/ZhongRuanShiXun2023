@@ -15,7 +15,7 @@ public interface UserMapper {
     boolean insert(User user);
 
     @Insert("insert into shixun.user(user_phone,user_pw) values (#{user_phone},#{user_pw})")
-    boolean insert(UserDTO userDTO);
+    boolean insert2(UserDTO userDTO);
 
     boolean update(User user);
 

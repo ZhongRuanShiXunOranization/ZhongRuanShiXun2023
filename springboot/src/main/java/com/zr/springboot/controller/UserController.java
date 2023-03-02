@@ -18,12 +18,12 @@ public class UserController {
 
     //注册功能
     @PostMapping("/register")
-    public boolean resign(@RequestBody UserDTO userDTO){
-        return userService.save(userDTO);
+    public boolean resign(@RequestBody User user){
+        return userService.save(user);
     }
 
     //登录功能
-    @PostMapping("login")
+    @PostMapping("/login")
     public boolean login(@RequestBody UserDTO userDTO){
         String user_phone = userDTO.getUser_phone();
         String user_pw = userDTO.getUser_pw();
@@ -37,7 +37,7 @@ public class UserController {
         return userService.save(user);
     }
     //删除
-    @DeleteMapping("/{user_id}")
+    @DeleteMapping("/{user_phone}")
     public int delete(@PathVariable String user_phone){
         return userMapper.deleteByUserPhone(user_phone);
     }
