@@ -2,7 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 //import HomeView from '../views/HomeView.vue'
 import layout from "@/views/LayOut/layout";
-
+import login from '../views/login/login.vue'
+import forgetPassword from "@/views/forgetPassword/forgetPassword";
+import rootLogin from '@/views/rootLogin/rootLogin.vue';
 Vue.use(VueRouter)
 
 const routes = [
@@ -20,7 +22,7 @@ const routes = [
   //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   // },
   {
-    path: '/',
+    path: '/register',
     name: 'register',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -50,7 +52,24 @@ const routes = [
         component:()=>import("../views/pages/historyPage")
       }
     ]
+
+  },
+  {
+    path: '/',
+    name: 'login',
+    component: login,
+  },
+  {
+    path: '/rootLogin',
+    name: 'rootLogin',
+    component: rootLogin,
+  },
+  {
+    path: '/forgetPassword',
+    name: 'forgetPassword',
+    component: forgetPassword
   }
+
 ]
 
 const router = new VueRouter({
